@@ -1,0 +1,23 @@
+
+sg-deployment {
+  width: 100%;
+  height: 100%;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  z-index: 1;
+
+  background-color: white;
+}
+
+.revertMsg {
+  color: #c0392b;
+  font-weight: bold;
+
+  text-align: center;
+}

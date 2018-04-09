@@ -1,0 +1,15 @@
+<!-- LOGO -->
+<div class='loading-logo'>
+  <h1>TESTING-CHAMBER</h1>
+</div>
+
+<!-- DEPLOY CONTAINER ANIMATION -->
+<div class='loading-container'>
+  <sg-lottie-renderer #lottieDeploy (onAnimationDone)='onDeployAnimDone()' (onAnimationLoaded)='onDeployAnimLoaded()' [options]='deployLottie'></sg-lottie-renderer>
+</div>
+
+<!-- DEPLOY MSG STUFF -->
+<div class='loading-containerinfo'>
+  <div class='loading-container-random' [ngClass]='{"revertMsg": lastDeployMsg.isError}'>{{ (lastDeployMsg.isError ? "REVERTING BUILD #" : "DEPLOYING BUILD #") + deploymentStatus.deployID }}</div>
+  <div class='loading-container-info'>{{ lastDeployMsg.msg }}</div>
+</div>

@@ -1,0 +1,117 @@
+html, sg-testing-chamber {
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	width: 100%;
+	height: 100%;
+
+	font-family: Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+	margin: 0;
+
+	display: flex;
+	overflow: hidden;
+
+	-webkit-app-region: no-drag;
+
+	-webkit-user-select: none;  /* Chrome all / Safari all */
+	-moz-user-select: none;     /* Firefox all */
+	-ms-user-select: none;      /* IE 10+ */
+	user-select: none;          /* Likely future */
+}
+
+img {
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+
+	pointer-events: none;
+}
+
+h1,h2,h3,h4 {
+  margin: 0;
+}
+
+h1 {font-size: 90px;}
+section {
+	width: 100%;
+	display: flex;
+}
+
+button, input {
+  -webkit-app-region: no-drag;
+}
+
+main {
+	display: flex;
+	flex: auto;
+	width: 100%;
+	height: 100%;
+
+	overflow: hidden;
+	position: relative;
+}
+
+iframe {
+	width: 100%;
+	height: 100%;
+
+	position: relative;
+	z-index: 0;
+
+	border-style: none;
+	border-width: 0px;
+}
+
+sg-lottie-renderer {
+	width: 100% !important;
+	height: 100% !important;
+}
+
+[hidden] {
+	display: none !important;
+}
+
+.wrapper {
+	display: flex;
+	flex-direction: column;
+
+	width: 100%;
+	height: 100%;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	margin: 0;
+	padding: 0;
+
+	overflow: hidden;
+	z-index: 10;
+
+	pointer-events: none;
+}
+
+.wrapper_void {
+	width: 100%;
+	height: 30%;
+}
+
+.tooltiped:hover::after {
+	content: attr(hint);
+
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+
+	background-color: #171717;
+	color: #fff;
+
+	z-index: 100;
+
+	padding-left: 5px;
+	padding-right: 5px;
+}

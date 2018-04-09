@@ -1,0 +1,16 @@
+<main>
+  <!-- INTRO SCREEN -->
+  <sg-startup-loading *ngIf='!appInit || !frameInit'></sg-startup-loading>
+
+  <!-- DEPLOYMENT SCREEN -->
+  <sg-deployment *ngIf='appInit && frameInit && deploymentStatus.status == 2'></sg-deployment>
+
+  <!-- UPDATE SCREEN -->
+  <div class='wrapper' *ngIf='appInit && frameInit'>
+    <div class='wrapper_void'></div>
+    <sg-update></sg-update>
+  </div>
+
+  <!-- DEPLOYED WEBSITE-->
+  <iframe #frame [src]='(deploymentStatus.status == 2 ? "about:blank" : deployUrl) | sgSafe:"resourceUrl"'></iframe>
+</main>

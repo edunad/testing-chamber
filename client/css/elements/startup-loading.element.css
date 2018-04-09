@@ -1,0 +1,48 @@
+sg-startup-loading {
+  position: absolute;
+  z-index: 100;
+
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  background-color: white;
+}
+
+.loading-logo {
+  width: 100%;
+  margin-top: 8%;
+
+  text-align: center;
+}
+
+.loading-container {
+  width: 100%;
+  height: 50%;
+}
+
+.loading-containerinfo {
+  width: 100%;
+
+  text-align: center;
+  flex: 1;
+
+  font-variant: all-petite-caps;
+  font-weight: 500;
+}
+
+.loading-container-random {
+  font-size: 32px;
+}
+
+.loading-container-info {
+  font-size: 17px;
+
+  position: relative;
+  top: -7px;
+}

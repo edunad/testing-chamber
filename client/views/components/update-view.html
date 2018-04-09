@@ -1,0 +1,84 @@
+<div class='update-main'>
+
+  <!-- POPUP ABOVE THE CHARACTER -->
+  <div class='update-container' *ngIf='showUpdate'>
+    <!-- TOOLBAR (Title and X) -->
+    <sg-toolbar (onClose)='closeMenu()'></sg-toolbar>
+    <!-- CONTENT -->
+    <div class='update-content'>
+
+      <!-- TABS -->
+      <div class='tab-holder'>
+        <!-- CHANGELOG TAB -->
+        <div class='tab tab-changelog' [ngClass]="{'tab-active': activeTab == 'changelog'}" (click)='setActiveTab("changelog")'>
+          <sg-loadbar *ngIf='jenkinsData.nextJenkinsCheck != null' [maxTimeValue]='jenkinsData.nextJenkinsCheck.next' [tick]='jenkinsData.nextJenkinsCheck.tick'></sg-loadbar>
+          <span>BUILD'S CHANGELOGS</span>
+        </div>
+        <!-- DEPLOY TAB -->
+        <div class='tab tab-deploy' [ngClass]="{'tab-active': activeTab == 'deploy', 'tab-deploying': deploymentStatus.status != 0}" (click)='setActiveTab("deploy")'>
+          <div class='tab-deploy-stripe' style='border-bottom: solid 2px #b33939;'></div>
+          <div class='tab-deploy-text'>DEPLOYMENT</div>
+          <div class='tab-deploy-stripe' style='border-top: solid 2px #b33939;'></div>
+        </div>
+      </div>
+
+      <!-- MAIN CONTENT -->
+      <div class='update-view-content'>
+
+        <!-- CHANGELOG TAB CONTENT -->
+        <div *ngIf='activeTab == "changelog" && jenkinsData.changelog != null'>
+          <sg-build *ngFor='let build of jenkinsData.changelog;' [currentBuild]='deployedVersion' [buildData]='build' class='changelog-container'></sg-build>
+        </div>
+
+        <!-- DEPLOY TAB CONTENT -->
+        <div class='deploy-container' *ngIf='activeTab == "deploy"'>
+          <!-- BUTTON ANIM-->
+          <div class='deploy_buttonanim'>
+            <sg-lottie-renderer #lottieButton (onAnimationLoaded)='onButtonAnimLoaded()' [options]='buttonLottie'></sg-lottie-renderer>
+          </div>
+
+          <!-- DEPLOY INFO -->
+          <div class='deploy_info' [ngClass]="{'tab-deploying': deploymentStatus.status != 0}">
+            <div class='tab-deploy-stripe' style='border-bottom: solid 2px #b33939;'></div>
+            <div class='tab-deploy-text'>{{ deploymentStatus.status == 0 ? 'BUILD DEPLOYMENT SETTINGS': 'SCHEDULED BUILD' }}</div>
+            <div class='tab-deploy-stripe' style='border-top: solid 2px #b33939;border-bottom: solid 2px #b33939;'></div>
+
+            <!-- DEPLOY ID LIST IF NOT DEPLOYING -->
+            <div class='deploy-info-warning' *ngIf='deploymentStatus.status == 0 && jenkinsData.changelog != null'>
+              <div class='deploy-info-text'>SELECT DEPLOYMENT BUILD NUMBER</div>
+              <select (change)="onBuildChange($event.target.value)" class='deploy-select' [disabled]='isBusy' [ngClass]='{"disabled" : isBusy}'>
+                <option value='-1'>Select deployment</option>
+                <option *ngFor='let build of jenkinsData.changelog | sgSkipBuild:deployedVersion; let i = index;' [selected]='selectedBuild == build.buildID' [value]='build.buildID'>#{{ build.buildID }}</option>
+              </select>
+            </div>
+
+            <!-- IF DEPLOYING, SHOW THE CURRENT DEPLOY ID -->
+            <div class='deploy-info-warning' *ngIf='deploymentStatus.status != 0'>
+              <div class='sch_buildid'>#{{ deploymentStatus.deployID }}</div>
+            </div>
+            <div class='tab-deploy-stripe' style='border-top: solid 2px #b33939;border-bottom: solid 2px #b33939;margin-bottom: 20px;'></div>
+
+            <!-- DEPLOY WARNING AND BUTTON -->
+            <div class='tab-deploy-stripe' style='border-top: solid 2px #b33939;border-bottom: solid 2px #b33939;'></div>
+            <div class='deploy-info-warning'>
+              <div class='deploy-info-text' style='padding-bottom: 0px;'>Connected users will lose connection while the deployment is in progress</div>
+              <sg-holdbtn [text]='deploymentStatus.status == 0 ? "SCHEDULE DEPLOYMENT" : deploymentStatus.status == 1 ? "CANCEL DEPLOYMENT SCHEDULE" : "DEPLOYING"' [disabled]='(selectedBuild == null && deploymentStatus.status == 0) || isBusy || deploymentStatus.status == 2' (onClick)='onDeployRequest()' holdTime='1000' holdText='Keep pressing to confirm'></sg-holdbtn>
+            </div>
+            <div class='tab-deploy-stripe' style='border-top: solid 2px #b33939;border-bottom: solid 2px #b33939;'></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- THE ARROW (LIKE A BALLON CHAT) -->
+    <div class='update-character-arrow'></div>
+  </div>
+</div>
+
+<!-- DEPLOYMENT WARNING POPUP -->
+<sg-deploywarning [remainingTime]='deployRemainTime' *ngIf='deploymentStatus.status == 1'></sg-deploywarning>
+
+<!-- MAIN CHARACTER -->
+<div class='update-character'>
+  <div class='update-hover-location' (click)='toggleUpdateMenu()' (mouseenter)='onRawrMouse(true)' (mouseleave)='onRawrMouse(false)'></div>
+  <sg-lottie-renderer #lottieRawr (onAnimationDone)='onRawrAnimDone()' (onAnimationLoaded)='onRawrAnimLoaded()' [options]='rawrLottie'></sg-lottie-renderer>
+</div>

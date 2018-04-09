@@ -1,0 +1,54 @@
+{
+  "_comment": "If set to TRUE, jenkins will be locally simulated",
+
+  "JENKINS_URL": "",
+  "_comment": "The project name in jenkins",
+  "JENKINS_PROJECT": "",
+
+  "_comment": "If the API is not public and requires authentication. Else, leave it empty",
+  "JENKINS_USER": "",
+  "JENKINS_PASS": "",
+
+  "_comment": "What GIT branch should it look for on the builds (for any, leave it empty)",
+  "JENKINS_BRANCH": "",
+
+  "_comment": "If the build changeset is empty, skip it (meaning there were no changes from the previous build)",
+  "JENKINS_SKIP_EMPTY_CHANGESET": false,
+
+  "_comment": "If set to TRUE, deployment will look for the artifact name inside jenkins. Else, it will look for the DEPLOY_DOWNLOAD_LOCATION",
+  "JENKINS_DEPLOYED": false,
+  "JENKINS_DEPLOY_ARTIFACT_NAME": "",
+
+  "_comment": "How many changelogs to show",
+  "JENKINS_MAX_CHANGELOG": 10,
+
+  "_comment": "The timer to check for updates in seconds (60)",
+  "JENKINS_UPDATE_TIMER" : 60,
+
+  "_comment": "The timer in seconds to deploy (60)",
+  "DEPLOY_SCHEDULE_SECONDS": 60,
+
+  "_comment": "If TRUE, the deployment is locally networked",
+  "DEPLOY_NETWORKED": true,
+
+  "_comment": "The deploy location, IIS should be pointing to this folder (Ex: C:\\testdeploy)",
+  "DEPLOY_LOCATION": "",
+
+  "_comment": "Where the deployments are located at (DEPLOY_NETWORKED needs to be true, Ex: D:\\deployfolders)",
+  "DEPLOY_DOWNLOAD_LOCATION": "",
+
+  "_comment": "Inside the ZIP, if the deployment is inside a folder, extract that folder (Ex: compressed)",
+  "DEPLOY_ZIP_FOLDER": "",
+
+  "_comment": "The website to display and reload - this is the website where your code is deployed to (Ex : http://localhost:8033)",
+  "DEPLOY_URL": "",
+
+  "_comment": "Scripts seperated by ; will execute in sequencial order (PRE-DEPLOY -> DOWNLOAD -> PRE-INSTALL -> EXTRACT / INSTALL -> POST-INSTALL -> POST-DEPLOY)",
+  "DEPLOY_PRE_DEPLOYMENT_SCRIPTS": "batch_scripts/examples/stop_iis.bat;",
+  "DEPLOY_PRE_INSTALL_SCRIPTS": "",
+  "DEPLOY_POST_INSTALL_SCRIPTS": "batch_scripts/examples/copy_files.bat;batch_scripts/examples/setupDatabase.bat;",
+  "DEPLOY_POST_DEPLOYMENT_SCRIPTS": "batch_scripts/examples/start_iis.bat;",
+
+  "_comment": "SocketIO authentication static token (to prevent other websites from connecting, note this does not fully prevent connection)",
+  "SOCKET_IO_AUTHTOKEN": "U28gbG9uZyBhbmQgdGhhbmtzIGZvciBhbGwgdGhlIGZpc2gu"
+}
