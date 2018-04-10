@@ -2,3 +2,4 @@ node_modules/
 static/
 /server/cache
 /server/temp
+copy_extraconfigs
